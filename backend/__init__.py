@@ -1,6 +1,7 @@
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restful import Resource, Api
+from flask_cors import CORS
 
 info = {
     'i1': {'title': 'the boys'},
@@ -9,16 +10,18 @@ info = {
 
 class TestRes(Resource):
     
-    def get(self, infoId):
+    def get(self):
         # return "Test!!!"
-        if infoId == "":
-            return info
-        return info[infoId]
+        # print(f"info id is: {infoId}")
+        # if infoId == "all":
+        return jsonify(info)
+        # return jsonify(info[infoId])
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     api = Api(app)
+    CORS(app)
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'db.sqlite'),
@@ -45,6 +48,9 @@ def create_app(test_config=None):
     # def hello():
     #     return '<h1>Hello, World!<h1>'
 
-    api.add_resource(TestRes, '/main/<infoId>')
+    api.add_resource(TestRes, '/')
+    # api.add_resource(TestRes, '/<infoId>')
 
     return app
+
+# run on 8080

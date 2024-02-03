@@ -31,5 +31,3 @@ def create_app(test_config=None):
         return 'Hello, World!'
 
     return app
-
-# app = create_app()
