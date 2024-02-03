@@ -1,5 +1,11 @@
-import Image from "next/image";
+'use client'
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
 import styles from "./page.module.css";
+import {useState} from "react";
+
+
+const localizer = momentLocalizer(moment)
 
 export default function Home() {
   return (
@@ -8,6 +14,12 @@ export default function Home() {
         <p>
           Health AI running plan
         </p>
+          <Calendar
+              localizer={localizer}
+              startAccessor="start"
+              endAccessor="end"
+              style={{ height: 500 }}
+          />
       </div>
     </main>
   );
